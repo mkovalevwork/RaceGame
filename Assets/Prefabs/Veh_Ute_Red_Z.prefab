@@ -211,6 +211,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carName: RedCar
+  carSpeedForward: 1.1
+  carSpeedRotation: 1.1
 --- !u!1 &4987027527070548950
 GameObject:
   m_ObjectHideFlags: 0

@@ -539,6 +539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carName: ArmorCar
+  carSpeedForward: 0.8
+  carSpeedRotation: 0.8
 --- !u!1 &8456188905147269377
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Transform[] camerasPositions; //5pos for main menu position
     private int carIndex = 0;
 
-
+    public void StartButton()
+    {
+        SceneManager.LoadScene(1);
+    }
     //StartManuChoseButton
     public void ChoseCarButton()
     {
@@ -28,7 +32,7 @@ public class MenuManager : MonoBehaviour
         mainCamera.transform.eulerAngles = camerasPositions[5].eulerAngles;
         UIManager.chooseCarCanvas.SetActive(false);
         UIManager.mainCanvas.SetActive(true);
-        UIManager.actualCarText.GetComponent<Text>().text = chosenCar.carName;
+        UIManager.actualCarText.GetComponent<Text>().text = chosenCar.CarName;
     }
 
     public void NextCarButton()

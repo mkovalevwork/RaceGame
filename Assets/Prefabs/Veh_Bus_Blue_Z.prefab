@@ -457,6 +457,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carName: BusCar
+  carSpeedForward: 0.7
+  carSpeedRotation: 0.7
 --- !u!1 &5865364773813240586
 GameObject:
   m_ObjectHideFlags: 0
