@@ -1,6 +1,5 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public enum CheckMethod
 {
@@ -20,25 +19,25 @@ public class ScenePartLoader : MonoBehaviour
     private void Update()
     {
         if (checkMethod == CheckMethod.Distance)
-        {
             DistanceCheck();
-        }
         else if (checkMethod == CheckMethod.Trigger)
-        {
             TriggerCheck();
-        }
     }
 
     void DistanceCheck()
     {
         if (Vector3.Distance(player.position, transform.position) < loadRange)
-        {
             LoadScene();
-        }
         else
-        {
             UnLoadScene();
-        }
+    }
+
+    void TriggerCheck()
+    {
+        if (shouldLoad)
+            LoadScene();
+        else
+            UnLoadScene();
     }
 
     void LoadScene()
@@ -59,31 +58,15 @@ public class ScenePartLoader : MonoBehaviour
         }
     }
 
-    void TriggerCheck()
-    {
-        if (shouldLoad)
-        {
-            LoadScene();
-        }
-        else
-        {
-            UnLoadScene();
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
             shouldLoad = true;
-        }
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
             shouldLoad = false;
-        }
     }
 }
