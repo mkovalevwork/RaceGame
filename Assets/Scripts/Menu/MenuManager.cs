@@ -1,19 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Collections;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private Car chosenCar;
+    [SerializeField] private GameObject chosenCar;
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private UIManager UIManager;
     [SerializeField] private GameObject[] cars;
     [SerializeField] private Transform[] camerasPositions; //5pos for main menu position
     private int carIndex = 0;
 
+    public Image loadingProgressBar;
+
+    List<AsyncOperation> scenesToLoad = new List<AsyncOperation> ();
     public void StartButton()
     {
-        SceneManager.LoadScene(1);
+        
+        if (chosenCar != null)
+        {
+            UIManager.mainCanvas.SetActive(false);
+            UIManager.chooseCarCanvas.SetActive(false);
+            UIManager.LoadingBarCanvas.SetActive(true);
+            scenesToLoad.Add(SceneManager.LoadSceneAsync(1));
+            StartCoroutine("LoadingScreen");           
+        }
     }
     //StartManuChoseButton
     public void ChoseCarButton()
@@ -27,12 +40,12 @@ public class MenuManager : MonoBehaviour
     //ChooseMenuChooseButton
     public void ChooseButton()
     {
-        chosenCar = cars[carIndex].GetComponent<Car>();
+        chosenCar = cars[carIndex];
         mainCamera.transform.position = camerasPositions[5].position;
         mainCamera.transform.eulerAngles = camerasPositions[5].eulerAngles;
         UIManager.chooseCarCanvas.SetActive(false);
         UIManager.mainCanvas.SetActive(true);
-        UIManager.actualCarText.GetComponent<Text>().text = chosenCar.CarName;
+        UIManager.actualCarText.GetComponent<Text>().text = chosenCar.GetComponent<Car>().CarName;
     }
 
     public void NextCarButton()
@@ -63,5 +76,19 @@ public class MenuManager : MonoBehaviour
         Debug.Log(carIndex);
         mainCamera.transform.position = camerasPositions[carIndex].position;
         mainCamera.transform.eulerAngles = camerasPositions[carIndex].eulerAngles;
+    }
+
+    IEnumerator LoadingScreen()
+    {
+        float totalProgress = 0;
+        for (int i = 0; i < scenesToLoad.Count; i++)
+        {
+            while (!scenesToLoad[i].isDone)
+            {
+                totalProgress += scenesToLoad[i].progress;
+                loadingProgressBar.fillAmount = totalProgress / scenesToLoad.Count;
+                yield return null;
+            }
+        }
     }
 }

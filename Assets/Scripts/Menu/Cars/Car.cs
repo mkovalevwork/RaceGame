@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Car : MonoBehaviour
 {
-    [SerializeField] private string carName;
-    [SerializeField] private float carSpeedForward;
-    [SerializeField] private float carSpeedRotation;
+    [SerializeField] protected string carName;
+    [SerializeField] protected float carSpeedForward;
+    [SerializeField] protected float carSpeedRotation;
 
     public string CarName { get { return carName; } }  //readonly
     public float CarSpeedForward { get { return carSpeedForward; } }  //readonly

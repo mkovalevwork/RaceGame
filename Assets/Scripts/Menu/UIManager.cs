@@ -11,4 +11,6 @@ public class UIManager : MonoBehaviour
     public GameObject chooseCarButton;
     public GameObject previosCarButton;
     public GameObject nextCarButton;
+
+    public GameObject LoadingBarCanvas;
 }
